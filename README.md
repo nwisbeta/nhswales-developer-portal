@@ -2,6 +2,10 @@
 
 This repository contains the content for a static website built with [Jekyll](https://jekyllrb.com/)
 
+## Generating the site
+You'll need Jekyll 4.0 or above to generate the site.
+If you've got docker desktop and VS Code, you can avoid the hassle of installing Jekyll by using [Dev Containers](https://code.visualstudio.com/docs/remote/containers).  VS Code should spot the `.devcontainer/devcontainer.json` file in the workspace and prompt you.
+
 
 ## How to add/edit a page
 
