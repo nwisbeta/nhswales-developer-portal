@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: 'en'}}" class="h-100">
+
+<head>
+    <link rel="shortcut icon" href="/assets/images/favicon-32x32.png">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {{ page.title }} | {{ site.data.i8n.strings.site-title[page.lang] }}</title>
+
+
+    {% assign posts=site.posts | where:"lang-ref", page.lang-ref | sort: 'lang' %}
+    {% if posts.size == 0 %}
+        {% assign posts=site.pages | where:"lang-ref", page.lang-ref | sort: 'lang' %}
+    {% endif %}
+    {% if posts.size > 1 %}
+        {% for post in posts %}
+        <link rel="alternate" hreflang="{{post.lang}}" href="{{ site.base-url }}{{ post.url }}" />
+        {% endfor %}
+    {% endif %}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <style>
+        /* html {
+            position: relative;
+            min-height: 100%;
+        }
+
+        body {
+            margin-bottom: 140px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 140px;
+            background-color: #f5f5f5;
+            box-sizing: border-box;
+            padding: 10px;
+            vertical-align: baseline;
+        }
+
+        main.container {
+            padding-top: 60px;
+            padding-bottom: 60px;
+        } */
+
+        .bg-gig-cymru {
+            background-color: #3f5181 !important;
+        }
+    </style>
+
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header class="flex-shrink-0">
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-dark bd-navbar bg-gig-cymru">
+            <div class="container">
+                <a class="navbar-brand" href="{{ site.baseurl }}/" aria-label="Bootstrap">
+                    <img src="{{ site.baseurl }}/assets/images/nhs-wales-dev-portal-logo.png"
+                        alt="NHS Wales Developer Portal | Porthol Datblygwyr GIG Cymru" height="100" width="344"
+                        class="mx-2">
+                    {{ site.title }}
+                </a>
+
+                <div class="navbar-text text-end">
+                    {% assign alt-pages=site.pages | where_exp: "item", "item.lang-ref ==  page.lang-ref and item.lang != page.lang" %}
+                    {% for alt-page in alt-pages %}
+                        <a href="{{alt-page.url}}"> {{site.data.i8n.languages[alt-page.lang]}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Begin page content -->
+    <main role="main" class="container flex-shrink-0 py-5">
+        {{ content }}
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 text-center text-sm-start">
+                    <img class="content picture picture-fpcs4" src="{{ site.baseurl }}/assets/images/nhs-wales-logo.png"
+                        alt="GIG Cymru | NHS Wales" width="181" height="100">
+                </div>
+                <div class="col-sm-6 text-center text-sm-end">
+                    
+                    {% for link-ref in site.data.i8n.footer-links %}
+                        {% assign link-pages=site.pages | where_exp: "item", "item.lang-ref == link-ref and item.lang == page.lang" %}
+                        {% for link-page in link-pages %}
+                            <a href="{{link-page.url}}">{{ link-page.title }}</a> -
+                        {% endfor %}
+                    {% endfor %}
+                    <a href="mailto:ecosystem@wales.nhs.uk">
+                        {{ site.data.i8n.strings.report-problem[page.lang] }}
+                    </a>
+                </div>
+                <div class="col-sm-12 text-center">
+                    &#169; GIG Cymru | NHS Wales
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

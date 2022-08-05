@@ -1,0 +1,16 @@
+languages:
+  en: English
+  cy: Cymraeg
+
+strings:
+  site-title:
+    en: NHS Wales Developer Portal
+    cy: Porthol Datblygwyr GIG Cymru
+  report-problem:
+    en: Report a problem
+    cy: Rhoi gwybod am broblem
+
+footer-links:
+  - accessibility
+  - privacy
+  - usage
